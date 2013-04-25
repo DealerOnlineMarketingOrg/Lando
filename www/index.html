@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Post testimonial</title>
+        <script type="text/javascript" charset="utf-8" src="PhoneGap.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", loaded, false);
+            
+            // Gets a picture, annotates it, posts it to social media.
+            function createTestimonial() {
+                navigator.camera.getPicture(
+                    // We got picture!
+                    function() {
+                        // Ready picture for posting.
+                        cameraPic.src = "data:image/jpeg;base64," + data;
+                        // Get annotation.
+                        annotation = annotateImage();
+                        navigator.geolocation.getCurrentPosition(
+                            // We got position!
+                            function () {
+                                // Ready picture with annotation for posting.
+                                postToSocial(data);
+                            },
+                            // We don't have location.
+                            function() {
+                                // Ready picture with annotation for posting.
+                                postToSocial(data);
+                            },
+                        );
+                    },
+                    // No picture.
+                    function() {
+                        // We didn't get picture. We can't do this.
+                        window.alert("Taking the picture was cancelled. Nothing will be posted.");
+                    },
+                    ,null,{sourceType:1,quality:60}
+                );
+            }
+            
+            // Annotate ima
+            function annotateImage() {
+                var annotation = prompt("Enter tag text for photo.","Annotate");
+                return annotation;
+            }
+            
+            function postToSocial(data) {
+                postToTwitter(data);
+                postToFacebook(data);
+            }
+            
+            // Twitter
+            // Returns true if twitter exists on device, else false.
+            function checkTwitter() {
+                
+            }
+            
+            function postToTwitter(data) {
+                
+            }
+            
+            // Facebook
+            // Returns true if facebook exists on device, else false.
+            function checkFacebook() p{
+            
+            }
+            
+            function postToFacebook(data) {
+                
+            }
+            
+            </script>
+        </head>
+    <body>
+    
+        <div id="slideGetPic" class="slide">
+            <h2>Post Testimonial</h2>
+            <input type="button" id="btnGetPic" text="Get Picture">
+        </div>
+        <div id="slideGetTestimonial" class="slide">
+            <img id="lrgThumb" src="">
+            <input type="textarea" id="taTestimonial">
+            <label class="subText">Testimonial</label>
+            <input type="button" id="btnBackToGetPic" text="Back">
+            <input type="button" id="btnSelectSites" text="Select Sites to Post to">
+        </div>
+        <div id="slideGetSocialList" class="slide">
+            <imd id="smlThumb" src="" style="float:right">
+            <label class="previewText"></label>
+            <input type="button" id="btnBackToGetTestimonal" text="Back">
+            <input type="button" id="btnPost" text="Post">
+        </div>
+        <div id="slideSuccess" class="slide">
+            <h2>Success!</h2>
+            <input type="button" id="btnDoAnother" text="Add Another Testimonial">
+        </div>
+        
+    </body>
+    
+    <script type="text/javascript" charset="utf-8">
+        $("#btnGetPic").click(function() {
+        
+        }
+        
+        $("#btnBackToGetPic").click(function() {
+        
+        }
+        
+        $("#btnSelectSites").click(function() {
+        
+        }
+        
+        $("#btnBackToGetTestimonal").click(function() {
+        
+        }
+        
+        $("#btnPost").click(function() {
+        
+        }
+        
+        $("#btnDoAnother").click(function() {
+        
+        }
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
