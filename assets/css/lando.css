@@ -1,0 +1,164 @@
+
+	div .fix {
+		float:none;
+	}
+
+	body .loaderContainer {
+		margin-left:20px;
+		width:257px;
+		height:18px;
+	}
+	
+	body .themeHeader {
+		background-color: grey;
+		height: 21px;
+		width: 320px;
+	}
+
+	body .headerBack {
+		background-image: url(images/lando/nav_back.png);
+		background-repeat:no-repeat;
+		background-color: red;
+		float:left;
+		width:29px;
+		height:21px;
+	}
+
+	body .headerOk {
+		background-image: url(images/lando/nav_ok.png);
+		background-repeat:no-repeat;
+		background-color: blue;
+		float:right;
+		width:29px;
+		height:21px;
+	}
+
+	body .themeContentLogo {
+		background-image: url(images/lando/DOM_background_logo.png);
+		background-repeat:no-repeat;
+		width: 320px;
+		height: 480px;
+		color: red;
+	}
+
+	body .themeContent {
+		background-image: url(images/lando/DOM_background.png);
+		background-repeat:no-repeat;
+		width: 320px;
+		height: 480px;
+		color: red;
+	}
+
+	body .themeFooter {
+		position: absolute;
+		height: 57px;
+		width: 320px;
+		top: 431px;
+		left: 8px;
+		background-color:grey;
+	}
+
+	body .vSpacer350 {
+		height: 350px;
+		float: none;
+	}
+
+	body .vSpacer75 {
+		height: 75px;
+		float: none;
+	}
+
+	body .blueButton {
+		background-image:url('images/lando/blue_button.png');
+		width: 170px;
+		height: 53px;
+		display: block;
+		margin: 0 auto;
+		color: white;
+	}
+
+	body .cameraPicture {
+		height: 299px;
+		width: 200px;
+		margin: 0 auto;
+		border: 10px solid grey;
+	}
+
+	body .cameraButton {
+		background-image:url('images/lando/camera.png');
+		position: relative;
+		height: 38px;
+		width: 38px;
+		top: 10px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	body .cameraPreviewPicture {
+		position: relative;
+		float: left;
+		width: 129px;
+		height: 193px;
+		left: 30px;
+		border: 4px solid grey;
+	}
+
+	body .socialMediaBox {
+		position: relative;
+		float: left;
+		width: 111px;
+		height: 81px;
+		left: 40px;
+	}
+
+	body .twitterBox {
+		background-repeat:no-repeat;
+		background-color: white;
+		text-indent:30px;
+		padding: 10px;
+		width: auto;
+		height: 18px;
+		border: 2px solid grey;
+	}
+
+	body .fbBox {
+		background-color: white;
+		text-indent:30px;
+		padding: 10px;
+		width: auto;
+		height: 18px;
+		border: 2px solid grey;
+	}
+
+	body .twitterActive {
+		background-image:url('images/lando/twitter-bird-active.png');
+		background-repeat:no-repeat;
+		color: blue;
+	}
+
+	body .twitterInactive {
+		background-image:url('images/lando/twitter-bird-inactive.png');
+		background-repeat:no-repeat;
+		color: grey;
+	}
+
+	body .fbActive {
+		background-image:url('images/lando/FB-logo_active.png');
+		background-repeat:no-repeat;
+		color: blue;
+	}
+
+	body .fbInactive {
+		background-image:url('images/lando/FB-logo_inactive.png');
+		background-repeat:no-repeat;
+		color: grey;
+	}
+
+	body .captionArea {
+		width: 259px;
+		height: 122px;
+		margin-top: 30px;
+		margin-left: 30px;
+		border: 2px solid grey;
+	}

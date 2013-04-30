@@ -1,0 +1,327 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Testimonials</title> 
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.1.min.css" /> -->	
+<script src="js/jquery.mobile-1.3.1.min.js"></script>
+<script src="js/jquery.ba-dotimeout.js"></script> 
+<script src="js/jquery.dst.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/tolito-1.0.3.min.css" />	
+<script src="js/tolito-1.0.3.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/lando.css" />	
+
+</head>
+
+<body>
+
+<div data-role="page" data-theme="b" id="containerPage">
+
+	<!-- Splash page -->
+		<div data-role="header" id="splashHeader" class="">
+		</div>
+		<div data-role="content" id="splashContent" class="themeContentLogo">
+			<div class="vSpacer350"></div>
+			<input type="button" id="startBtn" value="Start">
+			<!-- /Tolito Progress Bar 1.0.3 for jQuery Mobile -->
+			<div class="loaderContainer"><div id="progressbar"></div></div>
+		</div>
+		<div data-role="footer" id="splashFooter" class="">
+
+		</div>
+	<!-- End Splash page -->
+
+	<!-- Main page -->
+		<div data-role="header" id="mainHeader" class="">
+		</div>
+		<div data-role="content" id="mainContent" class="themeContentLogo">
+			<div class="vSpacer350"></div>
+			<input class="blueButton" type="button" id="goCameraBtn" value="Create New Testimonial">
+		</div>
+		<div data-role="footer" id="mainFooter" class="">
+
+		</div>
+	<!-- End Main page -->
+
+	<!-- main Camera page -->
+		<div data-role="header" id="cameraHeader" class="">
+		</div>
+		<div data-role="content" id="cameraContent" class="themeContent">
+			<div class="vSpacer75"></div>
+			<div class="cameraPicture"></div>
+		</div>
+		<div data-role="footer" id="cameraFooter" class="themeFooter">
+			<div class="cameraButton" id="goTestimonialBtn"></div>
+		</div>
+	<!-- End main Camera page -->
+
+	<!-- Testimonial page -->
+		<div data-role="header" id="testimonialHeader" class="themeHeader">
+			<div class="headerBack"></div>
+			<div class="headerOk"></div>
+		</div>
+		<div data-role="content" id="testimonialContent" class="themeContent">
+			<div class="vSpacer75"></div>
+			<div class="cameraPreviewPicture"></div>
+			<div class="socialMediaBox">
+				<div class="twitterBox"><div class="twitterInactive">Twitter</div></div>
+				<div class="fbBox"><div class="fbInactive">Facebook</div></div>
+			</div>
+			<div class="fix"></div>
+			<input class="captionArea" type="textarea"></input>
+			<input type="button" id="goGeotaggingBtn" value="Geotagging">
+		</div>
+		<div data-role="footer" id="testimonialFooter" class="">
+
+		</div>
+	<!-- End Testimonial page -->
+
+	<!-- Geotagging page -->
+		<div data-role="header" id="geotaggingHeader" class="themeHeader">
+		</div>
+		<div data-role="content" id="geotaggingContent" class="themeContent">
+			<label>Add your location</label>
+			<input type="checkbox" name="geotagCheck" value="geotag">
+			<input type="button" id="goSuccessBtn" value="Success">
+		</div>
+		<div data-role="footer" id="geotaggingFooter" class="">
+		
+		</div>
+	<!-- End Geotagging page -->
+	
+	<!-- Success page -->
+		<div data-role="header" id="successHeader" class="themeHeader">
+		</div>
+		<div data-role="content" id="successContent" class="themeContent">
+			<label>Posted successful!</label>
+			<input type="button" id="goAgainBtn" value="Another one">
+		</div>
+		<div data-role="footer" id="successFooter" class="">
+
+		</div>
+	<!-- End Success page -->
+
+</div> <!-- container -->
+
+<script>
+  $('#test').click(function() {
+  	Android.showToast('Toast check!');
+  });
+  
+  var splashHeader = $('#splashHeader');
+  var splashContent = $('#splashContent');
+  var splashFooter = $('#splashFooter');
+  var startBtn = $('#startBtn');
+
+  var mainHeader = $('#mainHeader');
+  var mainContent = $('#mainContent');
+  var mainFooter = $('#mainFooter');
+  var goCameraBtn = $('#goCameraBtn');
+
+  var cameraHeader = $('#cameraHeader');
+  var cameraContent = $('#cameraContent');
+  var cameraFooter = $('#cameraFooter');
+  var goTestimonialBtn = $('#goTestimonialBtn');
+  
+  var testimonialHeader = $('#testimonialHeader');
+  var testimonialContent = $('#testimonialContent');
+  var testimonialFooter = $('#testimonialFooter');
+  var goGeotaggingBtn = $('#goGeotaggingBtn');
+
+  var geotaggingHeader = $('#geotaggingHeader');
+  var geotaggingContent = $('#geotaggingContent');
+  var geotaggingFooter = $('#geotaggingFooter');
+  var goSuccessBtn = $('#goSuccessBtn');
+
+  var successHeader = $('#successHeader');
+  var successContent = $('#successContent');
+  var successFooter = $('#successFooter');
+  var goAgainBtn = $('#goAgainBtn');
+
+  $(document).ready(function() {
+    showSplashPage();
+  });
+
+	// Complete event from the Tolito progress bar.
+	$('#progressbar').bind('complete', '', function () {
+	        showMainPage();
+	});
+        
+  // Navigation
+  startBtn.click(function () {
+      // Initialize the Tolito progress bar.
+	TolitoProgressBar('progressbar')
+	    .setOuterTheme('c')
+	    .setInnerTheme('b')
+	    .isMini(false)
+	    .setMax(1000)
+	    .setStartFrom(0)
+	    .setInterval(10)
+	    .showCounter(true)
+	    .logOptions()
+	    .build();
+	    
+        // set value 300 after 2 seconds and then set value 800 after 3 seconds
+        setTimeout(function () {
+            tolito.setValue(300);
+            setTimeout(function () {
+                tolito.setValue(800);
+            }, 3000);
+        }, 2000);
+  });
+  
+  goCameraBtn.click(function () {
+	showCameraPage();
+  });
+  
+  goTestimonialBtn.click(function() {
+    showTestimonialPage();
+  });
+  
+  goGeotaggingBtn.click(function() {
+    showGeotaggingPage();
+  });
+  
+  goSuccessBtn.click(function() {
+    showSuccessPage();
+  });
+  
+  goAgainBtn.click(function() {
+    showMainPage();
+  });
+  // End Navigation
+  
+  // Navigation definitions
+  function showSplashPage() {
+    showSplash();
+    hideMain();
+	hideCamera();
+	hideTestimonial();
+	hideGeotagging();
+	hideSuccess();
+  }
+  
+  function showMainPage() {
+    hideSplash();
+    showMain();
+	hideCamera();
+	hideTestimonial();
+	hideGeotagging();
+	hideSuccess();
+  }
+  
+  function showCameraPage() {
+    hideSplash();
+    hideMain();
+	showCamera();
+	hideTestimonial();
+	hideGeotagging();
+	hideSuccess();
+  }
+
+  function showTestimonialPage() {
+    hideSplash();
+    hideMain();
+	hideCamera();
+	showTestimonial();
+	hideGeotagging();
+	hideSuccess();  
+  }
+  
+  function showGeotaggingPage() {
+    hideSplash();
+    hideMain();
+	hideCamera();
+	hideTestimonial();
+	showGeotagging();
+	hideSuccess();
+  }
+
+  function showSuccessPage() {
+    hideSplash();
+    hideMain();
+	hideCamera();
+	hideTestimonial();
+	hideGeotagging();
+	showSuccess();  
+  }
+  // End Navigation definitions
+  
+  function hideSplash() {
+    splashHeader.hide();
+    splashContent.hide();
+    splashFooter.hide();
+  }
+
+  function showSplash() {
+    splashHeader.show();
+    splashContent.show();
+    splashFooter.show();
+  }
+
+  function showMain() {
+    mainHeader.show();
+    mainContent.show();
+    mainFooter.show();
+  }
+
+  function hideMain() {
+    mainHeader.hide();
+    mainContent.hide();
+    mainFooter.hide();
+  }
+  
+  function showCamera() {
+    cameraHeader.show();
+    cameraContent.show();
+    cameraFooter.show();
+  }
+
+  function hideCamera() {
+    cameraHeader.hide();
+    cameraContent.hide();
+    cameraFooter.hide();
+  }
+  
+  function showTestimonial() {
+    testimonialHeader.show();
+    testimonialContent.show();
+    testimonialFooter.show();
+  }
+  
+  function hideTestimonial() {
+    testimonialHeader.hide();
+    testimonialContent.hide();
+    testimonialFooter.hide();  
+  }
+
+  function showGeotagging() {
+    geotaggingHeader.show();
+    geotaggingContent.show();
+    geotaggingFooter.show();
+  }
+  
+  function hideGeotagging() {
+    geotaggingHeader.hide();
+    geotaggingContent.hide();
+    geotaggingFooter.hide();  
+  }
+    
+  function showSuccess() {
+    successHeader.show();
+    successContent.show();
+    successFooter.show();  
+  }
+  
+  function hideSuccess() {
+    successHeader.hide();
+    successContent.hide();
+    successFooter.hide();  
+  }
+</script>
+
+</body>
+</html>
