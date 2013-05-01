@@ -162,15 +162,8 @@
 	    .setInterval(10)
 	    .showCounter(true)
 	    .logOptions()
-	    .build();
-	    
-        // set value 300 after 2 seconds and then set value 800 after 3 seconds
-        setTimeout(function () {
-            tolito.setValue(300);
-            setTimeout(function () {
-                tolito.setValue(800);
-            }, 3000);
-        }, 2000);
+	    .build()
+	    .run();
   });
   
   goCameraBtn.click(function () {

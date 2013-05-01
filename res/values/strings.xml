@@ -4,5 +4,9 @@
     <string name="app_name">Lando</string>
     <string name="action_settings">Settings</string>
     <string name="title">Testimonials</string>
+    <string name="title_activity_camera_view">CameraView</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_id">xxx</string>
+    <string name="title_activity_twitter">TwitterActivity</string>
 
 </resources>

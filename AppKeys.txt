@@ -1,0 +1,4 @@
+The App Key for Facebook:
+
+Requirements: need to be registered as an app developer
+Site: facebook.com - app dashboard - Create New App

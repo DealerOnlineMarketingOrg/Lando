@@ -1,5 +1,12 @@
 package com.dealeronlinemarketing.lando;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+//import android.support.v4.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+//import android.support.v4.app.FragmentTransaction;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,12 +21,27 @@ import android.widget.Toast;
 public class WebAppInterface {
 	
     Context mContext;
-
+    private static final int CAMERA_PIC_REQUEST = 1337;
+    
     /** Instantiate the interface and set the context */
     WebAppInterface(Context c) {
         mContext = c;
     }
 
+    // Adds the camera fragment to the view.
+    public void createCameraView() {
+    	//FragmentManager fragmentManger = getFragmentManager();
+    	//FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+    	//CameraFragment fragment = new CameraFragment();
+		//fragmentTransaction.add(R.id.surface_camera, fragment);
+		//fragmentTransaction.commit();
+    }
+    
+    // Removes the camera fragment from the view.
+    public void removeCameraView() {
+    	
+    }
+    
     /** Show a toast from the web page */
     @JavascriptInterface
     public void showToast(String toast) {
@@ -28,7 +50,6 @@ public class WebAppInterface {
     
     private class capabilities {
     	boolean hasNetwork;
-    	boolean hasInternet;
     	boolean hasBackCamera;
     	boolean hasTwitterInstalled;
     	boolean hasFacebookInstalled;
@@ -36,7 +57,6 @@ public class WebAppInterface {
     
     private void checkCapabilities() {
     	Capabilities.hasNetwork = isNetworkAvailable();
-    	Capabilities.hasInternet = isInternetAvailable();
     	Capabilities.hasBackCamera = isCameraAvailable();
     	Capabilities.hasTwitterInstalled = isTwitterAvailable();
     	Capabilities.hasFacebookInstalled = isFacebookAvailable();
@@ -48,11 +68,6 @@ public class WebAppInterface {
 	          = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-	}
-	
-	private boolean isInternetAvailable() {
-		// Attempt to load an internet page.
-		return true;
 	}
 	
 	public boolean isCameraAvailable() {
@@ -78,10 +93,10 @@ public class WebAppInterface {
 
 	public void captureImage() {
 	    // Capture image from camera
-        Intent intent = new Intent(
+        Intent cameraIntent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-        startActivityForResult(intent, CAMERA_PIC_REQUEST);
+        //startActivityForResult(intent, CAMERA_PIC_REQUEST);
 	}
-
+	
 }
