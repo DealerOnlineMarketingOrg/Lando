@@ -23,7 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity
@@ -41,23 +41,26 @@
         </activity>
         <activity
             android:name="com.dealeronlinemarketing.lando.TwitterActivity"
-            android:label="@string/title_activity_twitter" >
+            android:label="@string/title_activity_twitter"
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tweet-to-twitter-blundell-01-android" />
+            </intent-filter>
         </activity>
-		<activity
-            android:name=".TweetToTwitterActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                    <action android:name="android.intent.action.VIEW" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                    <category android:name="android.intent.category.BROWSABLE" />
-                    <data android:scheme="tweet-to-twitter-blundell-01-android" />
-            </intent-filter>
-	      </activity>
+        <activity
+            android:name="com.dealeronlinemarketing.lando.FacebookActivity"
+            android:label="@string/title_activity_facebook" >
+        </activity>
     </application>
 
 </manifest>

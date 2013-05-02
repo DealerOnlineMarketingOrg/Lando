@@ -19,18 +19,18 @@ import android.widget.Toast;
   
 public class TwitterActivity extends Activity {
 
-        private static final String TAG = "Blundell.TweetToTwitterActivity";
+        private static final String TAG = "Lando.TwitterActivity";
   
         /** Name to store the users access token */
-        private static final String PREF_ACCESS_TOKEN = "accessToken";
+        private static final String PREF_ACCESS_TOKEN = "1398124596-9kJp4e2iZnKNWZlXpi6oiWLO5oApwBma79NXKab";
         /** Name to store the users access token secret */
-        private static final String PREF_ACCESS_TOKEN_SECRET = "accessTokenSecret";
+        private static final String PREF_ACCESS_TOKEN_SECRET = "cYZuAOu4cGW9xcx3V4MoMx0sX7MlKgNKXsV22PNZcM";
         /** Consumer Key generated when you registered your app at https://dev.twitter.com/apps/ */
-        private static final String CONSUMER_KEY = "yourConsumerKey";
+        private static final String CONSUMER_KEY = "6wAbuWFwK6OmvZ6FbYYg";
         /** Consumer Secret generated when you registered your app at https://dev.twitter.com/apps/  */
-        private static final String CONSUMER_SECRET = "yourConsumerSecret"; // XXX Encode in your app
+        private static final String CONSUMER_SECRET = "oaWqXJbbECSGBOruG3mmIIAe5AD5Bc9dmBoGKU27Q"; // XXX Encode in your app
         /** The url that Twitter will redirect to after a user log's in - this will be picked up by your app manifest and redirected into this activity */
-        private static final String CALLBACK_URL = "tweet-to-twitter-blundell-01-android:///";
+        private static final String CALLBACK_URL = "http://www.callbackURL.com:///";
         /** Preferences to store a logged in users credentials */
         private SharedPreferences mPrefs;
         /** Twitter4j object */

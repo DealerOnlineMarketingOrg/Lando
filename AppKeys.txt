@@ -2,3 +2,31 @@ The App Key for Facebook:
 
 Requirements: need to be registered as an app developer
 Site: facebook.com - app dashboard - Create New App
+App, dev language/system and dev computer dependent.
+
+For user-HP dev computer:
+Key Hash: LF34WilQobusuc67nxA5bEHRxM4=
+App ID: 	309596085836964 (goes under strings.xml / app_id)
+App Secret: 	77d143daf3814051f8928499f56d384b(reset)
+
+
+The App Key for Twitter:
+
+Requirements: need to have an app application done
+Site: https://dev.twitter.com/apps/new
+App dependent.
+
+OAuth settings:
+Access level 	Read and write
+Consumer key 	6wAbuWFwK6OmvZ6FbYYg
+Consumer secret 	oaWqXJbbECSGBOruG3mmIIAe5AD5Bc9dmBoGKU27Q
+Request token URL 	https://api.twitter.com/oauth/request_token
+Authorize URL 	https://api.twitter.com/oauth/authorize
+Access token URL 	https://api.twitter.com/oauth/access_token
+Callback URL 	http://www.callbackURL.com
+Sign in with Twitter 	Yes
+
+Your access token:
+Access token 	1398124596-9kJp4e2iZnKNWZlXpi6oiWLO5oApwBma79NXKab
+Access token secret 	cYZuAOu4cGW9xcx3V4MoMx0sX7MlKgNKXsV22PNZcM
+Access level 	Read and write

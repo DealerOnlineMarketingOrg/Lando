@@ -3,7 +3,9 @@ package com.dealeronlinemarketing.lando;
 import java.io.IOException;
 
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.Menu;
@@ -12,30 +14,33 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class CameraView extends Activity implements SurfaceHolder.Callback {
+@TargetApi(11)
+public class CameraSurfaceFragment extends Fragment implements SurfaceHolder.Callback {
+	// Pointer to the activity that this fragment has been associated with.
+	Activity thisActivity = getActivity();
 	SurfaceView mSurfaceView;
 	SurfaceHolder mSurfaceHolder;
 	Camera mCamera;
 	boolean mPreviewRunning;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);
-		 getWindow().setFormat(PixelFormat.TRANSLUCENT);
-		 requestWindowFeature(Window.FEATURE_NO_TITLE);
-		 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		 
+		 thisActivity.getWindow().setFormat(PixelFormat.TRANSLUCENT);
+		 thisActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		 thisActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 		 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		 setContentView(R.layout.camera_surface);
-		 mSurfaceView = (SurfaceView) findViewById(R.id.surface_camera);
+		 thisActivity.setContentView(R.layout.fragment_camera_surface);
+		 mSurfaceView = (SurfaceView) thisActivity.findViewById(R.id.fragment_camera_surface);
 		 mSurfaceHolder = mSurfaceView.getHolder();
 		 mSurfaceHolder.addCallback(this);
 		 mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.camera_view, menu);
+		thisActivity.getMenuInflater().inflate(R.menu.camera_view, menu);
 		return true;
 	}
 	

@@ -6,7 +6,8 @@
     <string name="title">Testimonials</string>
     <string name="title_activity_camera_view">CameraView</string>
     <string name="hello_world">Hello world!</string>
-    <string name="app_id">xxx</string>
+    <string name="app_id">309596085836964</string>
     <string name="title_activity_twitter">TwitterActivity</string>
-
+    <string name="title_activity_facebook">FacebookActivity</string>
+    
 </resources>

@@ -20,31 +20,25 @@ import android.content.Intent;
 
 public class MainActivity extends Activity {
 	WebView mWebView;
-	SurfaceView SurfaceCamera;
+	SurfaceView mSurfaceCamera;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Load the main view. 
 		setContentView(R.layout.activity_main);
-	    mWebView = (WebView) findViewById(R.id.webview);
+		// Get instance pointer for WebView,
+		//  and load settings.
+	    mWebView = (WebView) findViewById(R.id.web_view);
 	    mWebView.getSettings().setJavaScriptEnabled(true);  
 	    mWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
 	    mWebView.getSettings().setDomStorageEnabled(true);
+	    // Load jquery-mobile web page into webview.
 	    mWebView.loadUrl("file:///android_asset/index.html");
 	    
-	    /*
-	    // Opens Facebook session.
-	    Session.openActiveSession(this, true, new Session.StatusCallback() {
-	    	// Callback when session changes
-	    	@Override
-	    	public void call(Session session, SessionState state, Exception exception) {
-	    		if (session.isOpened()) {
-	    			// Send success to jquery page.
-	    			MessageBox("FB Opened");
-	    		}
-	    	}
-	    });
-	    */
+	    // SurfaceCamera will be called later by fragment.
+	    
+	    MessageBox("loaded!");
 	}
 	
 	public void MessageBox(String msg) {
@@ -61,9 +55,13 @@ public class MainActivity extends Activity {
 	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {  
-	   if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {  
-	     mWebView.goBack();  
-	     return true;
+	   if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+		   // We would normally used mWebView.goBack() here, but since
+		   //  the page navigation is based on the webview page itself,
+		   //  that won't work.
+		   // Call the javascript function goBack on the WebView instead.
+		   mWebView.loadUrl("javascript:goBack()");
+		   return true;
 	   }
 	   return super.onKeyDown(keyCode, event);  
 	 }

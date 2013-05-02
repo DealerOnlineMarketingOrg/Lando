@@ -1,12 +1,7 @@
 package com.dealeronlinemarketing.lando;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-//import android.support.v4.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-//import android.support.v4.app.FragmentTransaction;
-
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,14 +22,10 @@ public class WebAppInterface {
     WebAppInterface(Context c) {
         mContext = c;
     }
-
+    
     // Adds the camera fragment to the view.
     public void createCameraView() {
-    	//FragmentManager fragmentManger = getFragmentManager();
-    	//FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
-    	//CameraFragment fragment = new CameraFragment();
-		//fragmentTransaction.add(R.id.surface_camera, fragment);
-		//fragmentTransaction.commit();
+    	// Dynamically add the camera fragment layout.
     }
     
     // Removes the camera fragment from the view.
