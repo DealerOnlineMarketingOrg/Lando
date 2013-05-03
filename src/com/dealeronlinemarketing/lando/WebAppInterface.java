@@ -1,5 +1,7 @@
 package com.dealeronlinemarketing.lando;
 
+import java.util.zip.Inflater;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -25,12 +27,16 @@ public class WebAppInterface {
     
     // Adds the camera fragment to the view.
     public void createCameraView() {
-    	// Dynamically add the camera fragment layout.
+    	// Punch a hole in the webView so the user can see
+    	//  the camera live preview surfaceView.
+    	((MainActivity)mContext).CreatePunchView();
     }
     
     // Removes the camera fragment from the view.
     public void removeCameraView() {
-    	
+    	// Remove the hole in the webView and close the
+    	//  camera down.
+    	((MainActivity)mContext).DestroyPunchView();
     }
     
     /** Show a toast from the web page */

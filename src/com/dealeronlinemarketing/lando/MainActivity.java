@@ -1,5 +1,8 @@
 package com.dealeronlinemarketing.lando;
 
+import java.io.IOException;
+
+import android.hardware.Camera;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
@@ -8,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.net.ConnectivityManager;
 import android.webkit.WebView;
@@ -17,28 +21,44 @@ import com.facebook.*;
 import com.facebook.model.*;
 import android.widget.TextView;
 import android.content.Intent;
+import android.hardware.Camera;
 
-public class MainActivity extends Activity {
-	WebView mWebView;
-	SurfaceView mSurfaceCamera;
+public class MainActivity extends Activity  implements SurfaceHolder.Callback {
+	WebView webView;
+    WebPunchThru webPunchThru;
+    SurfaceView surfaceView;
+    SurfaceHolder surfaceHolder;
+    Camera camera;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Load the main view. 
+		// Load the main view.
 		setContentView(R.layout.activity_main);
-		// Get instance pointer for WebView,
-		//  and load settings.
-	    mWebView = (WebView) findViewById(R.id.web_view);
-	    mWebView.getSettings().setJavaScriptEnabled(true);  
-	    mWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
-	    mWebView.getSettings().setDomStorageEnabled(true);
+		
+		// Ready the surface view for later use.
+		surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        
+		// Ready the webView and load.
+	    webView = (WebView) findViewById(R.id.web_view);
+	    webView.getSettings().setJavaScriptEnabled(true);  
+	    webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+	    webView.getSettings().setDomStorageEnabled(true);
 	    // Load jquery-mobile web page into webview.
-	    mWebView.loadUrl("file:///android_asset/index.html");
+	    webView.loadUrl("file:///android_asset/index.html");
 	    
-	    // SurfaceCamera will be called later by fragment.
-	    
-	    MessageBox("loaded!");
+	    // SurfaceCamera will be called later from the webView.
+	}
+	
+	public void CreatePunchView() {
+        webPunchThru = (WebPunchThru) findViewById(R.id.web_punch);
+	}
+	
+	public void DestroyPunchView() {
+		// Destroy the punch view here.
 	}
 	
 	public void MessageBox(String msg) {
@@ -55,12 +75,12 @@ public class MainActivity extends Activity {
 	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {  
-	   if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+	   if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
 		   // We would normally used mWebView.goBack() here, but since
 		   //  the page navigation is based on the webview page itself,
 		   //  that won't work.
 		   // Call the javascript function goBack on the WebView instead.
-		   mWebView.loadUrl("javascript:goBack()");
+		   webView.loadUrl("javascript:goBack()");
 		   return true;
 	   }
 	   return super.onKeyDown(keyCode, event);  
@@ -80,4 +100,41 @@ public class MainActivity extends Activity {
 	  Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
 	
+	// The following functions are part of the SurfaceHolder callback
+    @Override
+    public void onResume(){
+        camera = Camera.open();
+        super.onResume();
+    }
+    @Override
+    public void onPause(){
+        camera.stopPreview();
+        camera.release();
+        super.onPause();
+    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        try {
+            camera.setPreviewDisplay(holder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        camera.startPreview();
+         
+    }
+ 
+    public void surfaceCreated(SurfaceHolder holder) {
+        try {
+            camera.setPreviewDisplay(holder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        camera.startPreview();
+        
+    }
+  
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        camera.stopPreview();
+        
+    }
+    
 }

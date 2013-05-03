@@ -45,8 +45,8 @@ public class TwitterActivity extends Activity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-                Log.i(TAG, "Loading TweetToTwitterActivity");
-                setContentView(R.layout.main);
+                Log.i(TAG, "Loading TwitterActivity");
+                setContentView(R.layout.activity_twitter_test);
                 
                 // Create a new shared preference object to remember if the user has
                 // already given us permission
@@ -63,6 +63,21 @@ public class TwitterActivity extends Activity {
                 
                 mLoginButton = (Button) findViewById(R.id.login_button);
                 mTweetButton = (Button) findViewById(R.id.tweet_button);
+                
+                mLoginButton.setOnClickListener(new View.OnClickListener() {
+                	public void onClick(View v) {
+                        buttonLogin();
+                	}
+                });
+                
+                mTweetButton.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						buttonTweet(v);
+					}
+				});
         }
   
         /**
@@ -73,7 +88,7 @@ public class TwitterActivity extends Activity {
          *
          * @param v the clicked button
          */
-        public void buttonLogin(View v) {
+        public void buttonLogin() {
                 Log.i(TAG, "Login Pressed");
                 if (mPrefs.contains(PREF_ACCESS_TOKEN)) {
                         Log.i(TAG, "Repeat User");
@@ -183,7 +198,7 @@ public class TwitterActivity extends Activity {
                         saveAccessToken(at);
   
                         // Set the content view back after we changed to a webview
-                        setContentView(R.layout.main);
+                        setContentView(R.layout.activity_facebook_test);
                         
                         enableTweetButton();
                 } catch (TwitterException e) {

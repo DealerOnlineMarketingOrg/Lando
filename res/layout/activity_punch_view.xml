@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+    
+    <!-- This view lets us put a hole in our WebView so we can
+     see the live view of the camera, underneath, in SurfaceView.
+     This will be called when the user takes a picture.  -->
+	<RelativeLayout
+	        android:id="@+id/web_punch_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent" >
+	
+	       <com.dealeronlinemarketing.lando.WebPunchThru
+	            android:id="@+id/web_punch"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent" /> 
+	</RelativeLayout>
+	
+</FrameLayout>

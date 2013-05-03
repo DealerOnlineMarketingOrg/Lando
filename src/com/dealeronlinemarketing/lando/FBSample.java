@@ -36,20 +36,20 @@ public class FBSample extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_facebook_test);
         this.facebookConnector = new FBConnector(FACEBOOK_APPID, this, getApplicationContext(), new String[] {FACEBOOK_PERMISSION});
         
         
         loginStatus = (TextView)findViewById(R.id.login_status);
-        Button tweet = (Button) findViewById(R.id.btn_post);
+        Button post = (Button) findViewById(R.id.btn_post);
         Button clearCredentials = (Button) findViewById(R.id.btn_clear_credentials);
         
         
-        tweet.setOnClickListener(new View.OnClickListener() {
+        post.setOnClickListener(new View.OnClickListener() {
         	/**
-        	 * Send a tweet. If the user hasn't authenticated to Tweeter yet, he'll be redirected via a browser
-        	 * to the twitter login page. Once the user authenticated, he'll authorize the Android application to send
-        	 * tweets on the users behalf.
+        	 * Send a post. If the user hasn't authenticated to Facebook yet, he'll be redirected via a browser
+        	 * to the Facebook login page. Once the user authenticated, he'll authorize the Android application to send
+        	 * posts on the users behalf.
         	 */
             public void onClick(View v) {
         		postMessage();

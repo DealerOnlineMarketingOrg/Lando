@@ -23,7 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -46,7 +46,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -61,6 +61,12 @@
             android:name="com.dealeronlinemarketing.lando.FacebookActivity"
             android:label="@string/title_activity_facebook" >
         </activity>
+        <!-- placeholder. TODO: clean up and remove once functionality is working in MainActivity.
+	        <activity
+	            android:name="com.dealeronlinemarketing.lando.CameraWebActivity"
+	            android:label="@string/title_activity_camera_web" >
+	        </activity>
+        -->
     </application>
 
 </manifest>

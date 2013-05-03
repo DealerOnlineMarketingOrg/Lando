@@ -1,4 +1,5 @@
 <!DOCTYPE html> 
+<meta name="viewport" content="width=320, initial-scale=1">
 <html> 
 	<head> 
 	<title>Testimonials</title> 
@@ -18,131 +19,141 @@
 
 <body>
 
-<div data-role="page" data-theme="b" id="containerPage">
+<div data-role="page" id="splashPage" data-theme="b">
+	<div data-role="header" id="splashHeader" class="">
+	</div>
+	<div data-role="content" id="splashContent" class="themeContentLogo">
+		<div class="vSpacer350"></div>
+		<input type="button" id="startBtn" value="Start">
+		<!-- /Tolito Progress Bar 1.0.3 for jQuery Mobile -->
+		<div class="loaderContainer"><div id="progressbar"></div></div>
+	</div>
+	<div data-role="footer" id="splashFooter" class="">
 
-	<!-- Splash page -->
-		<div data-role="header" id="splashHeader" class="">
-		</div>
-		<div data-role="content" id="splashContent" class="themeContentLogo">
-			<div class="vSpacer350"></div>
-			<input type="button" id="startBtn" value="Start">
-			<!-- /Tolito Progress Bar 1.0.3 for jQuery Mobile -->
-			<div class="loaderContainer"><div id="progressbar"></div></div>
-		</div>
-		<div data-role="footer" id="splashFooter" class="">
+	</div>
+</div> <!-- splash page -->
 
-		</div>
-	<!-- End Splash page -->
+<div data-role="page" id="mainPage" data-theme="b">
+	<div data-role="header" id="mainHeader" class="">
+	</div>
+	<div data-role="content" id="mainContent" class="themeContentLogo">
+		<div class="vSpacer350"></div>
+		<input class="blueButton navigation" type="button" id="goCameraBtn" value="Create New Testimonial">
+	</div>
+	<div data-role="footer" id="mainFooter" class="">
 
-	<!-- Main page -->
-		<div data-role="header" id="mainHeader" class="">
-		</div>
-		<div data-role="content" id="mainContent" class="themeContentLogo">
-			<div class="vSpacer350"></div>
-			<input class="blueButton" type="button" id="goCameraBtn" value="Create New Testimonial">
-		</div>
-		<div data-role="footer" id="mainFooter" class="">
+	</div>
+</div> <!-- main page -->
 
-		</div>
-	<!-- End Main page -->
+<div data-role="page" id="cameraPage" data-theme="b">
+	<div data-role="header" id="cameraHeader" class="">
+	</div>
+	<div data-role="content" id="cameraContent" class="themeContent">
+		<div class="vSpacer75"></div>
+		<div class="cameraPicture"></div>
+	</div>
+	<div data-role="footer" id="cameraFooter" class="themeFooter">
+		<div class="cameraButton navigation" id="goTestimonialBtn"></div>
+	</div>
+</div> <!-- camera page -->
 
-	<!-- main Camera page -->
-		<div data-role="header" id="cameraHeader" class="">
+<div data-role="page" id="testimonialPage" data-theme="b">
+	<div data-role="header" id="testimonialHeader" class="themeHeader">
+		<div class="headerBack navigation" id="pageBack"></div>
+		<div class="headerOk navigation" id="pageOk"></div>
+	</div>
+	<div data-role="content" id="testimonialContent" class="themeContent">
+		<div class="vSpacer75"></div>
+		<div class="cameraPreviewPicture"></div>
+		<div class="socialMediaBox">
+			<div class="twitterBox"><div class="twitterInactive">Twitter</div></div>
+			<div class="fbBox"><div class="fbInactive">Facebook</div></div>
 		</div>
-		<div data-role="content" id="cameraContent" class="themeContent">
-			<div class="vSpacer75"></div>
-			<div class="cameraPicture"></div>
-		</div>
-		<div data-role="footer" id="cameraFooter" class="themeFooter">
-			<div class="cameraButton" id="goTestimonialBtn"></div>
-		</div>
-	<!-- End main Camera page -->
+		<div class="fix"></div>
+		<input class="captionArea" type="textarea"></input>
+		<input type="button" class="navigation" id="goGeotaggingBtn" value="Geotagging">
+	</div>
+	<div data-role="footer" id="testimonialFooter" class="">
 
-	<!-- Testimonial page -->
-		<div data-role="header" id="testimonialHeader" class="themeHeader">
-			<div class="headerBack"></div>
-			<div class="headerOk"></div>
-		</div>
-		<div data-role="content" id="testimonialContent" class="themeContent">
-			<div class="vSpacer75"></div>
-			<div class="cameraPreviewPicture"></div>
-			<div class="socialMediaBox">
-				<div class="twitterBox"><div class="twitterInactive">Twitter</div></div>
-				<div class="fbBox"><div class="fbInactive">Facebook</div></div>
-			</div>
-			<div class="fix"></div>
-			<input class="captionArea" type="textarea"></input>
-			<input type="button" id="goGeotaggingBtn" value="Geotagging">
-		</div>
-		<div data-role="footer" id="testimonialFooter" class="">
+	</div>
+</div> <!-- testimonial page -->
 
-		</div>
-	<!-- End Testimonial page -->
-
-	<!-- Geotagging page -->
-		<div data-role="header" id="geotaggingHeader" class="themeHeader">
-		</div>
-		<div data-role="content" id="geotaggingContent" class="themeContent">
-			<label>Add your location</label>
-			<input type="checkbox" name="geotagCheck" value="geotag">
-			<input type="button" id="goSuccessBtn" value="Success">
-		</div>
-		<div data-role="footer" id="geotaggingFooter" class="">
-		
-		</div>
-	<!-- End Geotagging page -->
+<div data-role="page" id="geotaggingPage" data-theme="b">
+	<div data-role="header" id="geotaggingHeader" class="themeHeader">
+	</div>
+	<div data-role="content" id="geotaggingContent" class="themeContent">
+		<label>Add your location</label>
+		<input type="checkbox" name="geotagCheck" value="geotag">
+		<input type="button" class="navigation" id="goSuccessBtn" value="Success">
+	</div>
+	<div data-role="footer" id="geotaggingFooter" class="">
 	
-	<!-- Success page -->
-		<div data-role="header" id="successHeader" class="themeHeader">
-		</div>
-		<div data-role="content" id="successContent" class="themeContent">
-			<label>Posted successful!</label>
-			<input type="button" id="goAgainBtn" value="Another one">
-		</div>
-		<div data-role="footer" id="successFooter" class="">
+	</div>
+</div> <!-- geotagging page -->
+	
+<div data-role="page" id="successPage" data-theme="b">
+	<div data-role="header" id="successHeader" class="themeHeader">
+	</div>
+	<div data-role="content" id="successContent" class="themeContent">
+		<label>Posted successful!</label>
+		<input type="button" class="navigation" id="goAgainBtn" value="Another one">
+	</div>
+	<div data-role="footer" id="successFooter" class="">
 
-		</div>
-	<!-- End Success page -->
-
-</div> <!-- container -->
+	</div>
+</div><!-- success page -->
 
 <script>
   $('#test').click(function() {
   	Android.showToast('Toast check!');
   });
   
-  var splashHeader = $('#splashHeader');
-  var splashContent = $('#splashContent');
-  var splashFooter = $('#splashFooter');
-  var startBtn = $('#startBtn');
-
-  var mainHeader = $('#mainHeader');
-  var mainContent = $('#mainContent');
-  var mainFooter = $('#mainFooter');
-  var goCameraBtn = $('#goCameraBtn');
-
-  var cameraHeader = $('#cameraHeader');
-  var cameraContent = $('#cameraContent');
-  var cameraFooter = $('#cameraFooter');
-  var goTestimonialBtn = $('#goTestimonialBtn');
+  // Navigation, by button.
+  $("button .navigation").click(function() {
+  		var thisPage = this.attr('id');
+		switch (thisPage) {
+			case 'goCameraBtn': gotoPage('cameraPage', 'slideup'); break;
+			case 'goTestimonialBtn': gotoPage('testimonialPage', 'slideup'); break;
+			case 'goGeotaggingBtn': gotoPage('geotaggingPage', 'slideup'); break;
+			case 'goSuccessBtn': gotoPage('successPage', 'slideup'); break;
+			
+			// pageBack and pageOk buttons are global navigation.
+			case 'pageBack': gotoPage(prevPage(thisPage), 'slidedown'); break;
+			case 'pageOk': gotoPage(nextPage(thisPage), 'slideup'); break;
+		}
+  });
   
-  var testimonialHeader = $('#testimonialHeader');
-  var testimonialContent = $('#testimonialContent');
-  var testimonialFooter = $('#testimonialFooter');
-  var goGeotaggingBtn = $('#goGeotaggingBtn');
-
-  var geotaggingHeader = $('#geotaggingHeader');
-  var geotaggingContent = $('#geotaggingContent');
-  var geotaggingFooter = $('#geotaggingFooter');
-  var goSuccessBtn = $('#goSuccessBtn');
-
-  var successHeader = $('#successHeader');
-  var successContent = $('#successContent');
-  var successFooter = $('#successFooter');
-  var goAgainBtn = $('#goAgainBtn');
-
+  // Goes to the specified page with transition.
+  function gotoPage(page, pageTransition) {
+	$.mobile.changePage($("#"+page), { transition: pageTransition} );
+  }
+  
+  // Returns the previous page, or false if no more.
+  function prevPage(currentPage) {
+  	switch (currentPage) {
+  		case 'splashPage': return false;
+  		case 'mainPage': return 'splashPage';
+  		case 'cameraPage': return 'mainPage';
+  		case 'testimonialPage': return 'cameraPage';
+  		case 'geotaggingPage': return 'testimonialPage';
+  		case 'successPage': return 'geotaggingPage';
+  	}
+  }
+	
+  // Returns the next page, or false if no more.
+  function nextPage(currentPage) {
+  	switch (currentPage) {
+  		case 'splashPage': return 'mainPage';
+  		case 'mainPage': return 'cameraPage';
+  		case 'cameraPage': return 'testimonialPage';
+  		case 'testimonialPage': return 'geotaggingPage';
+  		case 'geotaggingPage': return 'successPage';
+  		case 'successPage': return 'mainPage';
+  	}
+  }
+  
   $(document).ready(function() {
-    showSplashPage();
+	gotoPage('splashPage', 'slideup');
   });
 
 	// Complete event from the Tolito progress bar.
@@ -157,7 +168,7 @@
 	    .setOuterTheme('c')
 	    .setInnerTheme('b')
 	    .isMini(false)
-	    .setMax(1000)
+	    .setMax(100)
 	    .setStartFrom(0)
 	    .setInterval(10)
 	    .showCounter(true)
@@ -166,154 +177,6 @@
 	    .run();
   });
   
-  goCameraBtn.click(function () {
-	showCameraPage();
-  });
-  
-  goTestimonialBtn.click(function() {
-    showTestimonialPage();
-  });
-  
-  goGeotaggingBtn.click(function() {
-    showGeotaggingPage();
-  });
-  
-  goSuccessBtn.click(function() {
-    showSuccessPage();
-  });
-  
-  goAgainBtn.click(function() {
-    showMainPage();
-  });
-  // End Navigation
-  
-  // Navigation definitions
-  function showSplashPage() {
-    showSplash();
-    hideMain();
-	hideCamera();
-	hideTestimonial();
-	hideGeotagging();
-	hideSuccess();
-  }
-  
-  function showMainPage() {
-    hideSplash();
-    showMain();
-	hideCamera();
-	hideTestimonial();
-	hideGeotagging();
-	hideSuccess();
-  }
-  
-  function showCameraPage() {
-    hideSplash();
-    hideMain();
-	showCamera();
-	hideTestimonial();
-	hideGeotagging();
-	hideSuccess();
-  }
-
-  function showTestimonialPage() {
-    hideSplash();
-    hideMain();
-	hideCamera();
-	showTestimonial();
-	hideGeotagging();
-	hideSuccess();  
-  }
-  
-  function showGeotaggingPage() {
-    hideSplash();
-    hideMain();
-	hideCamera();
-	hideTestimonial();
-	showGeotagging();
-	hideSuccess();
-  }
-
-  function showSuccessPage() {
-    hideSplash();
-    hideMain();
-	hideCamera();
-	hideTestimonial();
-	hideGeotagging();
-	showSuccess();  
-  }
-  // End Navigation definitions
-  
-  function hideSplash() {
-    splashHeader.hide();
-    splashContent.hide();
-    splashFooter.hide();
-  }
-
-  function showSplash() {
-    splashHeader.show();
-    splashContent.show();
-    splashFooter.show();
-  }
-
-  function showMain() {
-    mainHeader.show();
-    mainContent.show();
-    mainFooter.show();
-  }
-
-  function hideMain() {
-    mainHeader.hide();
-    mainContent.hide();
-    mainFooter.hide();
-  }
-  
-  function showCamera() {
-    cameraHeader.show();
-    cameraContent.show();
-    cameraFooter.show();
-  }
-
-  function hideCamera() {
-    cameraHeader.hide();
-    cameraContent.hide();
-    cameraFooter.hide();
-  }
-  
-  function showTestimonial() {
-    testimonialHeader.show();
-    testimonialContent.show();
-    testimonialFooter.show();
-  }
-  
-  function hideTestimonial() {
-    testimonialHeader.hide();
-    testimonialContent.hide();
-    testimonialFooter.hide();  
-  }
-
-  function showGeotagging() {
-    geotaggingHeader.show();
-    geotaggingContent.show();
-    geotaggingFooter.show();
-  }
-  
-  function hideGeotagging() {
-    geotaggingHeader.hide();
-    geotaggingContent.hide();
-    geotaggingFooter.hide();  
-  }
-    
-  function showSuccess() {
-    successHeader.show();
-    successContent.show();
-    successFooter.show();  
-  }
-  
-  function hideSuccess() {
-    successHeader.hide();
-    successContent.hide();
-    successFooter.hide();  
-  }
 </script>
 
 </body>
