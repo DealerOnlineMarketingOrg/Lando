@@ -53,7 +53,7 @@
 		<div class="cameraPicture"></div>
 	</div>
 	<div data-role="footer" id="cameraFooter" class="themeFooter">
-		<div class="cameraButton navigation" id="goTestimonialBtn"></div>
+		<div class="cameraButton" id="takePicture"></div>
 	</div>
 </div> <!-- camera page -->
 
@@ -104,79 +104,107 @@
 </div><!-- success page -->
 
 <script>
-  $('#test').click(function() {
-  	Android.showToast('Toast check!');
-  });
+	$('#test').click(function() {
+		Android.showToast('Toast check!');
+	});
   
-  // Navigation, by button.
-  $("button .navigation").click(function() {
-  		var thisPage = this.attr('id');
-		switch (thisPage) {
-			case 'goCameraBtn': gotoPage('cameraPage', 'slideup'); break;
-			case 'goTestimonialBtn': gotoPage('testimonialPage', 'slideup'); break;
-			case 'goGeotaggingBtn': gotoPage('geotaggingPage', 'slideup'); break;
-			case 'goSuccessBtn': gotoPage('successPage', 'slideup'); break;
+  	$('#takePicture').click(function() {
+  		// Save picture and remove camera view.
+  		Android.saveCameraPicture();
+  		Android.removeCameraView();
+  	});
+  	
+	// Navigation, by button.
+	$(".navigation").click(function() {
+		// Get the id of this navigation element.
+		var id = $(this).attr('id');
+		// Get the id of the page the navigation element belongs to.
+		var page = $(this).closest("[data-role='page']").attr('id');
+		switch (id ) {
+			case 'goCameraBtn': gotoPage('cameraPage', 'slide'); break;
+			case 'goTestimonialBtn': gotoPage('testimonialPage', 'slide'); break;
+			case 'goGeotaggingBtn': gotoPage('geotaggingPage', 'slide'); break;
+			case 'goSuccessBtn': gotoPage('successPage', 'slide'); break;
+			case 'goAgainBtn': gotoPage('mainPage', 'slide'); break;
 			
 			// pageBack and pageOk buttons are global navigation.
-			case 'pageBack': gotoPage(prevPage(thisPage), 'slidedown'); break;
-			case 'pageOk': gotoPage(nextPage(thisPage), 'slideup'); break;
+			case 'pageBack': gotoPage(prevPage(page), 'slidedown'); break;
+			case 'pageOk': gotoPage(nextPage(page), 'slide'); break;
 		}
-  });
-  
-  // Goes to the specified page with transition.
-  function gotoPage(page, pageTransition) {
-	$.mobile.changePage($("#"+page), { transition: pageTransition} );
-  }
-  
-  // Returns the previous page, or false if no more.
-  function prevPage(currentPage) {
-  	switch (currentPage) {
-  		case 'splashPage': return false;
-  		case 'mainPage': return 'splashPage';
-  		case 'cameraPage': return 'mainPage';
-  		case 'testimonialPage': return 'cameraPage';
-  		case 'geotaggingPage': return 'testimonialPage';
-  		case 'successPage': return 'geotaggingPage';
-  	}
-  }
-	
-  // Returns the next page, or false if no more.
-  function nextPage(currentPage) {
-  	switch (currentPage) {
-  		case 'splashPage': return 'mainPage';
-  		case 'mainPage': return 'cameraPage';
-  		case 'cameraPage': return 'testimonialPage';
-  		case 'testimonialPage': return 'geotaggingPage';
-  		case 'geotaggingPage': return 'successPage';
-  		case 'successPage': return 'mainPage';
-  	}
-  }
-  
-  $(document).ready(function() {
-	gotoPage('splashPage', 'slideup');
-  });
+	});
 
-	// Complete event from the Tolito progress bar.
-	$('#progressbar').bind('complete', '', function () {
-	        showMainPage();
+	// Goes to the specified page with transition.
+	function gotoPage(page, pageTransition) {
+		// Todo: get this working
+		//$.mobile.changePage("#"+page);
+		
+		// Temp solution to changePage problem.
+		// Switch pages, no transition.
+		$("[data-role='page']").each(function() {
+			if ($(this).attr('id') == page)
+				$(this).css('display','');
+			else
+				$(this).css('display','none');
+		});
+		
+		// If the new page is the camera page, start up the
+		//   camera view.
+  		Android.createCameraView();
+	}
+
+	// Returns the previous page, or false if no more.
+	function prevPage(currentPage) {
+		switch (currentPage) {
+			case 'splashPage': return false;
+			case 'mainPage': return 'splashPage';
+			case 'cameraPage': return 'mainPage';
+			case 'testimonialPage': return 'cameraPage';
+			case 'geotaggingPage': return 'testimonialPage';
+			case 'successPage': return 'geotaggingPage';
+		}
+	}
+
+	// Returns the next page, or false if no more.
+	function nextPage(currentPage) {
+		switch (currentPage) {
+			case 'splashPage': return 'mainPage';
+			case 'mainPage': return 'cameraPage';
+			case 'cameraPage': return 'testimonialPage';
+			case 'testimonialPage': return 'geotaggingPage';
+			case 'geotaggingPage': return 'successPage';
+			case 'successPage': return 'mainPage';
+		}
+	}
+  
+	$(document).ready(function() {
+		// Hide all pages except splash by default, so navigation will work correctly.
+		$("[data-role='page']").each(function() {
+			if ($(this).attr('id') != 'splashPage')
+				$(this).css('display','none');
+		});
+		// Show first page.
+		gotoPage('splashPage', 'slide');
 	});
         
-  // Navigation
-  startBtn.click(function () {
-      // Initialize the Tolito progress bar.
-	TolitoProgressBar('progressbar')
-	    .setOuterTheme('c')
-	    .setInnerTheme('b')
-	    .isMini(false)
-	    .setMax(100)
-	    .setStartFrom(0)
-	    .setInterval(10)
-	    .showCounter(true)
-	    .logOptions()
-	    .build()
-	    .run();
-  });
+	$('#startBtn').click(function () {
+	  // Initialize the Tolito progress bar.
+		TolitoProgressBar('progressbar')
+			.setOuterTheme('c')
+			.setInnerTheme('b')
+			.isMini(false)
+			.setMax(100)
+			.setStartFrom(0)
+			.setInterval(10)
+			.showCounter(true)
+			.logOptions()
+			.build()
+			.run();
+	});
   
+  	// Complete event from the Tolito progress bar.
+	$('#progressbar').bind('complete', '', function () {
+		gotoPage('mainPage', 'slidedown');
+	});
 </script>
 
 </body>

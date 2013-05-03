@@ -32,6 +32,11 @@ public class WebAppInterface {
     	((MainActivity)mContext).CreatePunchView();
     }
     
+    // Saves the picture.
+    public void saveCameraPicture() {
+    	
+    }
+    
     // Removes the camera fragment from the view.
     public void removeCameraView() {
     	// Remove the hole in the webView and close the
