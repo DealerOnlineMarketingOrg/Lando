@@ -60,6 +60,7 @@ public class MainActivity extends Activity {
 	    mWebView.getSettings().setDomStorageEnabled(true);
 	    // Load jquery-mobile web page into webview.
 	    mWebView.loadUrl("file:///android_asset/index.html");
+	    Log.d(TAG, "Application loaded..");		
 	}
 	
 	// Attempts to get an open instance of the camera.
