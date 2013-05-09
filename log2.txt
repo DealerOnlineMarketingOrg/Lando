@@ -1,0 +1,42 @@
+05-09 15:51:20.481: I/webclipboard(9370): clipservice: android.sec.clipboard.ClipboardExManager@40529a10
+05-09 15:51:25.956: D/Interface(9370): starting camera check
+05-09 15:51:25.956: D/Main(9370): callJS: checkCapabilitiesCompleted()
+05-09 15:51:29.600: D/Main(9370): Getting back camera..
+05-09 15:51:30.861: D/Preview(9370): constructor: mCamera: android.hardware.Camera@40534d58
+05-09 15:51:30.861: D/Preview(9370): constructor: mHolder: android.view.SurfaceView$3@40527708
+05-09 15:51:31.272: D/Main(9370): mCameraPreview: com.example.landodev.CameraPreviewActivity@405aa830
+05-09 15:51:31.272: D/Main(9370): layoutPreview: android.widget.RelativeLayout@40517438
+05-09 15:51:31.272: D/Main(9370): preview: android.widget.FrameLayout@4053f9f8
+05-09 15:51:31.272: D/Main(9370): callJS: openCameraCompleted()
+05-09 15:51:31.472: D/Preview(9370): Preview stopped.
+05-09 15:51:31.572: W/dalvikvm(9370): threadid=1: thread exiting with uncaught exception (group=0x40020560)
+05-09 15:51:32.873: E/AndroidRuntime(9370): FATAL EXCEPTION: main
+05-09 15:51:32.873: E/AndroidRuntime(9370): java.lang.RuntimeException: setParameters failed
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.hardware.Camera.native_setParameters(Native Method)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.hardware.Camera.setParameters(Camera.java:1010)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at com.example.landodev.CameraPreviewActivity.surfaceChanged(CameraPreviewActivity.java:102)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.SurfaceView.updateWindow(SurfaceView.java:558)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.SurfaceView.dispatchDraw(SurfaceView.java:350)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.View.draw(View.java:6884)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.widget.FrameLayout.draw(FrameLayout.java:358)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.drawChild(ViewGroup.java:1646)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.View.draw(View.java:6884)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.widget.FrameLayout.draw(FrameLayout.java:358)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at com.android.internal.policy.impl.PhoneWindow$DecorView.draw(PhoneWindow.java:2199)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewRoot.draw(ViewRoot.java:1524)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewRoot.performTraversals(ViewRoot.java:1260)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.view.ViewRoot.handleMessage(ViewRoot.java:1861)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.os.Looper.loop(Looper.java:130)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at android.app.ActivityThread.main(ActivityThread.java:3685)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at java.lang.reflect.Method.invokeNative(Native Method)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at java.lang.reflect.Method.invoke(Method.java:507)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:867)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:625)
+05-09 15:51:32.873: E/AndroidRuntime(9370): 	at dalvik.system.NativeStart.main(Native Method)
+05-09 15:51:37.978: V/SurfaceView(9370): com.example.landodev.CameraPreviewActivity@405aa830 got app visibiltiy is changed: false
