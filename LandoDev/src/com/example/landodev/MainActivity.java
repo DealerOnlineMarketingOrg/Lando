@@ -68,15 +68,35 @@ public class MainActivity extends Activity {
 	private Camera getCameraInstance() {
 		Camera c = null;
 		
+		boolean gotBackCamera = false;
+		
 		try {
 			// Attempt to get an instance of the camera by opening it.
+			// We'll first try to get the first back-facing camera.
+			Log.d(TAG, "Getting back camera..");
 			c = Camera.open();
+			// Got back camera
+			gotBackCamera = true;
 		} catch (Exception e) {
-			// Something went wrong. The camera wouldn't open for us.
-			// It doesn't exist, it isn't on, or it's currently in use.
-	    	// Let our log know we couldn't get the camera.
-	    	Log.d(TAG, "Error getting camera" + e.getMessage());
-			return null;
+			// We didn't get the back camera.
+			Log.d(TAG, "Error getting back camera" + e.getMessage());
+			gotBackCamera = false;
+		}
+
+		// If we didn't get the back facing camera..
+		// c == null if we didn't get the camera, but there was no error, either.
+		if (!gotBackCamera || c == null) {
+			try {
+				// We didn't get the back camera, so now try to get the
+				//  first camera available.
+				Log.d(TAG, "Getting any camera..");
+				c = Camera.open(0);
+			} catch (Exception e) {
+				// We didn't get any camera.
+				Log.d(TAG, "Error getting first camera" + e.getMessage());
+				// Exit since we don't have any camera.
+				return null;
+			}
 		}
 
 		if (c == null) {
