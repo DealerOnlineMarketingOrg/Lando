@@ -84,7 +84,7 @@ public class WebAppInterface {
     
     // Removes the imageview thumbnail from the view.
     @JavascriptInterface
-    public void removeThumbnail(String filePath, String callback) {
+    public void removeThumbnail(String callback) {
     	((MainActivity)mContext).removeImageThumb(mContext);
     	
     	// Call javascript callback when done.

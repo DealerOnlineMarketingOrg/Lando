@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 		
 		try {
 			// Attempt to get an instance of the camera by opening it.
-			c = Camera.open(0);
+			c = Camera.open();
 		} catch (Exception e) {
 			// Something went wrong. The camera wouldn't open for us.
 			// It doesn't exist, it isn't on, or it's currently in use.

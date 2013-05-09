@@ -70,7 +70,6 @@
 		</div>
 		<div class="fix"></div>
 		<input class="captionArea" type="textarea"></input>
-		<input type="button" class="navigation" id="goGeotaggingBtn" value="Geotagging">
 	</div>
 	<div data-role="footer" id="testimonialFooter" class="">
 
@@ -163,20 +162,30 @@
 			gotoPage('mainPage', 'slidedown');
 	});
 	
+	function parseCssPropertyPixels(selector, property) {
+		var val = $(selector).css(property);
+		return parseInt(val.substring(0, val.indexOf('px')));
+	}
+	
 	// This function returns the bounding rectangle of the element's
 	//  size and position (relative to the visible page).
 	// The left, top, width and height are to be used by Android called
 	//  functions that place elements on the screen.
 	function getBoundingClientRect(elementID) {
 		var elem = document.getElementById(elementID);
+		selector = "#"+elementID;
 		var rect = elem.getBoundingClientRect();
+		
 		// getBoundingClientRect includes the margins.
 		// Remove them.
-		rect.left = rect.left + elem.style.borderLeft;
-		rect.top = rect.top + elem.style.borderTop;
-		rect.width = rect.width - elem.style.borderLeft - elem.style.borderRight;
-		rect.height = rect.height - elem.style.borderTop - elem.style.borderBottom;
-		return rect;
+		var newleft; var newtop; var newwidth; var newheight;
+		newleft = rect.left + parseCssPropertyPixels(selector, "borderLeftWidth");
+		newtop = rect.top + parseCssPropertyPixels(selector, "borderTopWidth");
+		newwidth = rect.width - parseCssPropertyPixels(selector, "borderLeftWidth") - parseCssPropertyPixels(selector, "borderRightWidth");
+		newheight = rect.height - parseCssPropertyPixels(selector, "borderTopWidth") - parseCssPropertyPixels(selector, "borderBottomWidth");
+
+		var newRect = {left: newleft, top: newtop, width: newwidth, height: newheight};
+		return newRect;
 	}
 	 
   	// The main function to be called when the camera operations start.
@@ -223,6 +232,7 @@
   	// Starts up the thumbnail preview by adding the thumb 
   	//  (from the previously saved image) to the view.
   	function startThumbnail() {
+  		thumbRunning = true;
   		var rect = getBoundingClientRect('cameraPreviewThumb');
   		Android.showThumbnail(cameraImageFilePath,
   			rect.left, rect.top, rect.width, rect.height,
@@ -236,12 +246,12 @@
   	
   	// Removes the thumbnail preview from the view.
   	function removeThumbnail() {
-  		Android.removeImageThumb('removeThumbnailCompleted');
+  		Android.removeThumbnail('removeThumbnailCompleted');
   	}
   	
   	// Called once the thumbnail preview has been removed.
   	function removeThumbnailCompleted() {
-  	
+  		thumbRunning = false;
   	}
   	
   	$("#twitterState").click(function() {
@@ -269,7 +279,6 @@
 		switch (id ) {
 			case 'goCameraBtn': gotoPage('cameraPage', 'slide'); break;
 			case 'goTestimonialBtn': gotoPage('testimonialPage', 'slide'); break;
-			case 'goGeotaggingBtn': gotoPage('geotaggingPage', 'slide'); break;
 			case 'goSuccessBtn': gotoPage('successPage', 'slide'); break;
 			case 'goAgainBtn': gotoPage('mainPage', 'slide'); break;
 			
@@ -289,6 +298,7 @@
 	//  device's back button is pressed before page finishes loading.
 	var currentPage = 'splashPage';
 	var cameraRunning = false;
+	var thumbRunning = false;
 	// Goes to the specified page with transition.
 	function gotoPage(page, pageTransition) {
 		// If page == false, there's no page to go to.
@@ -318,6 +328,10 @@
 			//   the thumbnail preview.
 			if (page == 'testimonialPage')
 				startThumbnail();
+			else if (thumbRunning)
+				// Stop thumbnail if not testimonial page,
+				//  and thumbnail was running.
+				removeThumbnail();
 	  	}
 	}
 	
