@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -220,11 +221,27 @@ public class MainActivity extends Activity {
 	    		// Scale image to thumb view.
 	    		imageViewThumb.setImageBitmap(Bitmap.createScaledBitmap(bmp, dipRect.width(), dipRect.height(), false));
 	    		
+	    		// Get the orienation of the image itself.
+	    		ExifInterface exif = null;
+	    		try {
+					ExifInterface exif = new ExifInterface(filePath);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		// If we can get orientation information, rotate image accordingly.
+	    		if (exif != null) {
+	    			String imageOrientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+	    			
+	    		}
+	    		
+	    		// Get the main layout and set the image view parameters for it.
 				RelativeLayout layoutMain = (RelativeLayout) findViewById(R.id.main_layout);
 				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dipRect.width(), dipRect.height());
 				params.leftMargin = dipRect.left;
 				params.topMargin = dipRect.top;
 				
+				// Add image view to main layout (active activity).
 				layoutMain.addView(imageViewThumb, params);
 	    	}
 	    });
