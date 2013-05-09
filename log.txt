@@ -1,1 +1,26 @@
-05-03 17:48:30.410: E/AndroidRuntime(1835): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:625)
+05-06 15:30:55.277: I/webclipboard(1631): clipservice: android.sec.clipboard.ClipboardExManager@4052d428
+05-06 15:31:08.891: W/webview(1631): Miss a drag as we are waiting for WebCore's response for touch down.
+05-06 15:32:18.840: W/dalvikvm(1631): threadid=1: thread exiting with uncaught exception (group=0x40020560)
+05-06 15:32:18.840: V/SurfaceView(1631): android.view.SurfaceView@4052aef0 got app visibiltiy is changed: false
+05-06 15:32:18.930: E/AndroidRuntime(1631): FATAL EXCEPTION: main
+05-06 15:32:18.930: E/AndroidRuntime(1631): java.lang.RuntimeException: Method called after release()
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.hardware.Camera.stopPreview(Native Method)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at com.dealeronlinemarketing.lando.MainActivity.surfaceDestroyed(MainActivity.java:136)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.SurfaceView.reportSurfaceDestroyed(SurfaceView.java:596)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.SurfaceView.updateWindow(SurfaceView.java:490)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.SurfaceView.onWindowVisibilityChanged(SurfaceView.java:215)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.View.dispatchWindowVisibilityChanged(View.java:4028)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewGroup.dispatchWindowVisibilityChanged(ViewGroup.java:720)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewGroup.dispatchWindowVisibilityChanged(ViewGroup.java:720)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewGroup.dispatchWindowVisibilityChanged(ViewGroup.java:720)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewGroup.dispatchWindowVisibilityChanged(ViewGroup.java:720)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewRoot.performTraversals(ViewRoot.java:784)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.view.ViewRoot.handleMessage(ViewRoot.java:1861)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.os.Looper.loop(Looper.java:130)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at android.app.ActivityThread.main(ActivityThread.java:3685)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at java.lang.reflect.Method.invokeNative(Native Method)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at java.lang.reflect.Method.invoke(Method.java:507)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:867)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:625)
+05-06 15:32:18.930: E/AndroidRuntime(1631): 	at dalvik.system.NativeStart.main(Native Method)
