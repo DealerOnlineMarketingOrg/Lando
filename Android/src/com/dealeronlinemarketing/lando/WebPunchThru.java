@@ -15,12 +15,14 @@ public class WebPunchThru extends View {
         super(context, attrs);
     }
 
+    /*
     public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);        
+        super.onDraw(canvas);
         Path path = new Path();
         path.addCircle(200.0f, 200.0f, 100.0f, Path.Direction.CW);
          canvas.clipPath(path);
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR); // transparent windows
 
       }
+      */
     }

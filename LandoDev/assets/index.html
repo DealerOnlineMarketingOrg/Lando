@@ -1,0 +1,301 @@
+<!DOCTYPE html> 
+<meta name="viewport" content="width=320, initial-scale=1">
+<html> 
+	<head> 
+	<title>Testimonials</title> 
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.1.min.css" /> -->	
+<script src="js/jquery.mobile-1.3.1.min.js"></script>
+<script src="js/jquery.ba-dotimeout.js"></script> 
+<script src="js/jquery.dst.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/tolito-1.0.3.min.css" />	
+<script src="js/tolito-1.0.3.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/lando.css" />	
+
+</head>
+
+<body>
+
+<div data-role="page" id="splashPage" data-theme="b">
+	<div data-role="header" id="splashHeader" class="">
+	</div>
+	<div data-role="content" id="splashContent" class="themeContentLogo">
+		<div class="vSpacer350"></div>
+		<!-- /Tolito Progress Bar 1.0.3 for jQuery Mobile -->
+		<div class="loaderContainer"><div id="progressbar"></div></div>
+	</div>
+	<div data-role="footer" id="splashFooter" class="">
+
+	</div>
+</div> <!-- splash page -->
+
+<div data-role="page" id="mainPage" data-theme="b">
+	<div data-role="header" id="mainHeader" class="">
+	</div>
+	<div data-role="content" id="mainContent" class="themeContentLogo">
+		<div class="vSpacer350"></div>
+		<input class="blueButton navigation" type="button" id="goCameraBtn" value="Create New Testimonial">
+	</div>
+	<div data-role="footer" id="mainFooter" class="">
+
+	</div>
+</div> <!-- main page -->
+
+<div data-role="page" id="cameraPage" data-theme="b">
+	<div data-role="header" id="cameraHeader" class="">
+	</div>
+	<div data-role="content" id="cameraContent" class="themeContent">
+		<div class="vSpacer75"></div>
+		<div class="cameraPicture"></div>
+	</div>
+	<div data-role="footer" id="cameraFooter" class="themeFooter">
+		<div class="cameraButton" id="takePicture"></div>
+	</div>
+</div> <!-- camera page -->
+
+<div data-role="page" id="testimonialPage" data-theme="b">
+	<div data-role="header" id="testimonialHeader" class="themeHeader">
+		<div class="headerBack navigation" id="pageBack"></div>
+		<div class="headerOk navigation" id="pageOk"></div>
+	</div>
+	<div data-role="content" id="testimonialContent" class="themeContent">
+		<div class="vSpacer75"></div>
+		<div class="cameraPreviewPicture"></div>
+		<div class="socialMediaBox">
+			<div class="twitterBox"><div id="twitterState" class="twitterInactive">Twitter</div></div>
+			<div class="fbBox"><div id="fbState" class="fbInactive">Facebook</div></div>
+		</div>
+		<div class="fix"></div>
+		<input class="captionArea" type="textarea"></input>
+		<input type="button" class="navigation" id="goGeotaggingBtn" value="Geotagging">
+	</div>
+	<div data-role="footer" id="testimonialFooter" class="">
+
+	</div>
+</div> <!-- testimonial page -->
+
+<div data-role="page" id="geotaggingPage" data-theme="b">
+	<div data-role="header" id="geotaggingHeader" class="themeHeader">
+	</div>
+	<div data-role="content" id="geotaggingContent" class="themeContent">
+		<label>Add your location</label>
+		<input type="checkbox" name="geotagCheck" value="geotag">
+		<input type="button" class="navigation" id="goSuccessBtn" value="Success">
+	</div>
+	<div data-role="footer" id="geotaggingFooter" class="">
+	
+	</div>
+</div> <!-- geotagging page -->
+	
+<div data-role="page" id="successPage" data-theme="b">
+	<div data-role="header" id="successHeader" class="themeHeader">
+	</div>
+	<div data-role="content" id="successContent" class="themeContent">
+		<label>Posted successful!</label>
+		<input type="button" class="navigation" id="goAgainBtn" value="Another one">
+	</div>
+	<div data-role="footer" id="successFooter" class="">
+
+	</div>
+</div><!-- success page -->
+
+<script>
+
+	$(document).ready(function() {
+		// Hide all pages except splash by default, so navigation will work correctly.
+		$("[data-role='page']").each(function() {
+			if ($(this).attr('id') != 'splashPage')
+				$(this).css('display','none');
+		});
+		// Show first page.
+		gotoPage('splashPage', 'slide');
+		
+		// Do startup routines.
+		runFirst();
+	});
+    
+    // This routine is to be ran when the application first starts up.
+	// It checks what functionality / applications the device has.
+	// This is needed for camera, facebook and twitter.
+	// Implemented in WebAppInterface.
+	function runFirst() {
+		// Check the capabilities for camera, twitter and facebook.
+		// Calls the passed callback function when done.
+		Android.checkCapabilities('checkCapabilitiesCompleted');
+		runProgressBar();
+	}
+	
+	var isCheckDone = false;
+	var isProgressBarDone = false;
+	function checkCapabilitiesCompleted() {
+		isCheckDone = true;
+		// Head to the main page once the check is done.
+		// If progress bar hasn't finished yet, wait for it.
+		if (isProgressBarDone)
+			gotoPage('mainPage', 'slidedown');
+	}
+	
+	// This routine shows the progress bar.
+	function runProgressBar() {
+		// Initialize the Tolito progress bar.
+		TolitoProgressBar('progressbar')
+			.setOuterTheme('c')
+			.setInnerTheme('b')
+			.isMini(false)
+			.setMax(10)
+			.setStartFrom(0)
+			.setInterval(1)
+			.showCounter(true)
+			.logOptions()
+			.build()
+			.run();
+	}
+	
+  	// Complete event from the Tolito progress bar.
+	$('#progressbar').bind('complete', '', function () {
+		isProgressBarDone = true;
+		// Head to the main page once the progress bar is done.
+		// If checkCapabilities hasn't finished yet, wait for it.
+		if (isCheckDone)
+			gotoPage('mainPage', 'slidedown');
+	});
+	
+  	// The main function to be called when the camera operations start.
+  	function startCamera() {
+		cameraRunning = true;
+  		Android.openCameraPreview('openCameraCompleted');
+	}
+  	
+	// Called once Android.openCameraPreview is done.
+	function openCameraCompleted() {
+	
+	}
+	
+  	$('#takePicture').click(function() {
+  		// Save picture and remove camera view.
+  		Android.takeCameraPicture('takeCameraPictureCompleted');
+  	});
+  	
+  	var cameraImageFilePath = '';
+  	function takeCameraPictureCompleted(filePath) {
+  		Android.debugLog('javascript', 'takeCamera..');
+  		// When the picture has been saved, save the file path for it.
+  		// The file path will refer to the image store in the java activities.
+  		cameraImageFilePath = filePath;
+  		// Once the picture has been saved, we can close the camera.
+  		Android.closeCameraPreview('closeCameraPreviewCompleted');
+  	}
+  	
+  	// The last function called in the camera operations,
+  	//  after the camera is closed.
+  	function closeCameraPreviewCompleted() {
+  		Android.debugLog('javascript', 'closeCamera..');
+  		cameraRunning = false;
+  		// Once the camera preview has closed,
+  		//  we can move to the next page.
+  		gotoPage(nextPage(currentPage));
+  	}
+  	
+  	$("#twitterState").click(function() {
+  		// Toggle between 'not chosen' and 'chosen' for twitter.
+  		if ($(this).attr('class') == 'twitterInactive')
+  			$(this).attr('class', 'twitterActive');
+  		else
+  			$(this).attr('class', 'twitterInactive');
+  	});
+  	
+  	$("#fbState").click(function() {
+  		// Toggle between 'not chosen' and 'chosen' for facebook.
+  		if ($(this).attr('class') == 'fbInactive')
+  			$(this).attr('class', 'fbActive');
+  		else
+  			$(this).attr('class', 'fbInactive');
+  	});
+  	
+	// Navigation, by button.
+	$(".navigation").click(function() {
+		// Get the id of this navigation element.
+		var id = $(this).attr('id');
+		// Get the id of the page the navigation element belongs to.
+		var page = $(this).closest("[data-role='page']").attr('id');
+		switch (id ) {
+			case 'goCameraBtn': gotoPage('cameraPage', 'slide'); break;
+			case 'goTestimonialBtn': gotoPage('testimonialPage', 'slide'); break;
+			case 'goGeotaggingBtn': gotoPage('geotaggingPage', 'slide'); break;
+			case 'goSuccessBtn': gotoPage('successPage', 'slide'); break;
+			case 'goAgainBtn': gotoPage('mainPage', 'slide'); break;
+			
+			// pageBack and pageOk buttons are global navigation.
+			case 'pageBack': gotoPage(prevPage(page), 'slidedown'); break;
+			case 'pageOk': gotoPage(nextPage(page), 'slide'); break;
+		}
+	});
+
+	// To be called by the java environment.
+	// Triggered when the user presses the device's 'back button'.
+	function goBack() {
+		gotoPage(prevPage(currentPage));
+	}
+	
+	// We start at the splashPage. Set this as default in case
+	//  device's back button is pressed before page finishes loading.
+	var currentPage = 'splashPage';
+	var cameraRunning = false;
+	// Goes to the specified page with transition.
+	function gotoPage(page, pageTransition) {
+		// If page == false, there's no page to go to.
+		// Can happen if, for example, we try to go 'back'
+		//  from the starting page.
+		if (page != false) {
+			// Todo: get this working
+			//$.mobile.changePage("#"+page);
+			
+			// Temp solution to changePage problem.
+			// Switch pages, no transition.
+			$("[data-role='page']").each(function() {
+				if ($(this).attr('id') == page)
+					$(this).css('display','');
+				else
+					$(this).css('display','none');
+			});
+			
+			currentPage = page;
+			
+			// If the new page is the camera page, start up the
+			//   camera operations.
+			if (page == 'cameraPage')
+				startCamera();
+	  	}
+	}
+	
+	// Returns the previous page, or false if no more.
+	function prevPage(currentPage) {
+		switch (currentPage) {
+			case 'splashPage': return false;
+			case 'mainPage': return 'splashPage';
+			case 'cameraPage': return 'mainPage';
+			case 'testimonialPage': return 'cameraPage';
+			case 'geotaggingPage': return 'testimonialPage';
+			case 'successPage': return 'geotaggingPage';
+		}
+	}
+
+	// Returns the next page, or false if no more.
+	function nextPage(currentPage) {
+		switch (currentPage) {
+			case 'splashPage': return 'mainPage';
+			case 'mainPage': return 'cameraPage';
+			case 'cameraPage': return 'testimonialPage';
+			case 'testimonialPage': return 'geotaggingPage';
+			case 'geotaggingPage': return 'successPage';
+			case 'successPage': return 'mainPage';
+		}
+	}
+	
+</script>
+
+</body>
+</html>
