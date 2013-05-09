@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
+import android.graphics.Rect;
 
 // This is the javascript -> java interface.
 // Used for java-functions that are used and called in the
@@ -25,15 +26,29 @@ public class WebAppInterface {
         mContext = c;
     }
     
-    // Adds the camera preview window to the view.
+    // Function to run the javascript callbacks.
+    // Javascript callbacks are functions that are called
+    //  after an interface function is completed. These are
+    //  used for async operations.
+    // funcName is the name of the callback function.
+    // args is a comma-delimited list of arguments.
+    //  strings in args need to be wrapped in single quotes.
+    // If there are no arguments, set args to "".
+    private void runCallback(String funcName, String args) {
+    	// Ensure we have a callback function to call.
+    	if (funcName != "")
+    		((MainActivity)mContext).callJS(mContext, funcName, args);
+    }
+    
+    // Adds the camera preview window to the view at the specified size and location.
     @JavascriptInterface
-    public void openCameraPreview(String callback) {
+    public void openCameraPreview(int left, int top, int width, int height, String callback) {
     	// Open up the camera preview view.
-    	((MainActivity)mContext).openCamera();
+    	Rect clientRect = new Rect(left, top, width+left, height+top);
+    	((MainActivity)mContext).openCamera(clientRect);
     	
     	// Call javascript callback when done.
-    	if (callback != "")
-    		((MainActivity)mContext).callJS(mContext, callback, "");
+    	runCallback(callback, "");
     }
     
     // Saves the picture.
@@ -51,8 +66,29 @@ public class WebAppInterface {
     	((MainActivity)mContext).closeCamera();
     	
     	// Call javascript callback when done.
-    	if (callback != "")
-    		((MainActivity)mContext).callJS(mContext, callback, "");
+    	runCallback(callback, "");
+    }
+    
+    // Shows an image from the specified path on the thumbnail.
+    // Left, top, width and height are in pixels from the bounding
+    //  element's size and position (relative to the page) to place this at.
+    @JavascriptInterface
+    public void showThumbnail(String filePath, int left, int top, int width, int height, String callback) {
+    	// Convert size and position to Rect for addImageThumb.
+    	Rect clientRect = new Rect(left, top, width+left, height+top);
+    	((MainActivity)mContext).addImageThumb(mContext, filePath, clientRect);
+    	
+    	// Call javascript callback when done.
+    	runCallback(callback, "");
+    }
+    
+    // Removes the imageview thumbnail from the view.
+    @JavascriptInterface
+    public void removeThumbnail(String filePath, String callback) {
+    	((MainActivity)mContext).removeImageThumb(mContext);
+    	
+    	// Call javascript callback when done.
+    	runCallback(callback, "");
     }
     
     // This function is for debugging from javascript.
@@ -103,8 +139,7 @@ public class WebAppInterface {
     	capabilities.hasFacebookInstalled = isFacebookAvailable();
     	
     	// Call javascript callback when done.
-    	if (callback != "")
-    		((MainActivity)mContext).callJS(mContext, callback, "");
+    	runCallback(callback, "");
     }
     
     // Checks if the network is available.

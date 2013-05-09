@@ -1,3 +1,10 @@
+	/** This removes the margins from the body, letting the web page fit flush inside the view. */
+	body {
+		margin-top: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		margin-left: 0px;
+	}
 
 	div .fix {
 		float:none;
@@ -53,8 +60,8 @@
 		position: absolute;
 		height: 57px;
 		width: 320px;
-		top: 431px;
-		left: 8px;
+		top: 423px;
+		left: 0px;
 		background-color:grey;
 	}
 

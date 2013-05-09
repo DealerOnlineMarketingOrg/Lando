@@ -9,26 +9,39 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore.Files.FileColumns;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
+	// The tag for logging.
 	private static final String TAG = "Main";
+	// Holds the main WebView.
     WebView mWebView;
+    // Holds the current active instance of the camera for taking pictures.
     private Camera mCamera = null;
+    // Holds the instance of the live-preview view for the camera.
 	private CameraPreviewActivity mCameraPreview = null;
-	
+	// Holds the thumbnail image view that was taken from the camera.
+	private ImageView imageViewThumb = null;
 	// Used for javascript callback, when javascript calls the WebAppInterface function takePicture.
 	String takePictureCallback = "";
 	
@@ -57,7 +70,7 @@ public class MainActivity extends Activity {
 		
 		try {
 			// Attempt to get an instance of the camera by opening it.
-			c = Camera.open();
+			c = Camera.open(0);
 		} catch (Exception e) {
 			// Something went wrong. The camera wouldn't open for us.
 			// It doesn't exist, it isn't on, or it's currently in use.
@@ -77,13 +90,13 @@ public class MainActivity extends Activity {
 	
 	// Called when the user requests that the camera be used.
 	// Returns true if we have a preview, else false.
-	public boolean openCamera() {
+	public boolean openCamera(Rect clientRect) {
 	    // Ready the camera.
 		mCamera = getCameraInstance();
 		
 		if (mCamera != null) {
 			// Add the camera preview View to the current webView.
-			addCameraView(this);
+			addCameraView(this, clientRect);
 			return true;
 	    } else {
 			Log.d(TAG, "Didn't get camera.");
@@ -91,9 +104,15 @@ public class MainActivity extends Activity {
 	    }
 	}
 	
-	public void addCameraView(final Context context) {
+	// Creates the camera preview view and adds it to the current activity in the preview pane.
+	// This operation has to run on the UI thread.
+	private void addCameraView(final Context context, final Rect clientRect) {
 	    runOnUiThread(new Runnable() {
 	        public void run() {
+	    		// Our dimensions are from the webView, so they're in pixels.
+	    		// Convert to DIPs so the layout can show it correctly.
+	    		Rect dipRect = convertClientPixelsToDIPs(clientRect);
+	    		
 				// Get instance of our view.
 				// We need to inflate the activity_camera_preview layout, then inflate the camera_preview FrameLayout,
 				//  from the resources.
@@ -101,14 +120,18 @@ public class MainActivity extends Activity {
 				
 				RelativeLayout layoutMain = (RelativeLayout) findViewById(R.id.main_layout);
 				//RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(300, 450);
-				params.leftMargin = 102;
-				params.topMargin = 139;
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dipRect.width(), dipRect.height());
+				params.leftMargin = dipRect.left;
+				params.topMargin = dipRect.top;
 		    	
 
 			    // Create an instance of our camera preview and add it
 			    //  to this activity.
 				mCameraPreview = new CameraPreviewActivity(context, mCamera);
+				// Make sure camera is oriented correctly.
+				Camera.Parameters parameters = mCamera.getParameters();
+				parameters.set("orienation", "portrait");
+				mCamera.setParameters(parameters);
 				
 				View layoutPreview = mInflater.inflate(R.layout.activity_camera_preview, null);
 				layoutPreview.setBackgroundColor(getResources().getColor(android.R.color.white));
@@ -129,16 +152,87 @@ public class MainActivity extends Activity {
 	    });
 	}
 	
+	// Removes the camera preview view from the activity and deletes from the resources.
+	// This operation has to run on the UI thread.
+	public void removeCameraView(final Context context) {
+	    runOnUiThread(new Runnable() {
+	        public void run() {
+	        	ViewGroup vg = (ViewGroup)(mCameraPreview.getParent());
+	        	vg.removeView(mCameraPreview);
+	        	mCameraPreview = null;
+	        }
+	    });
+	}
+	
+	// Convert a pixel into a DIP.
+	private int convertPixelToDIP(int pixel) {
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		// .density gives the density conversion, not the actual density.
+		// Multiply by 160 to get the actual density.
+		float density = metrics.density;
+		int dip = (int)(pixel*density);
+		return dip;
+	}
+	
+	// Converts rectangle's pixels into DIPs.
+	private Rect convertClientPixelsToDIPs(Rect rect) {
+		Rect dipRect = new Rect();
+		dipRect.left = convertPixelToDIP(rect.left);
+		dipRect.top = convertPixelToDIP(rect.top);
+		dipRect.right = convertPixelToDIP(rect.right);
+		dipRect.bottom = convertPixelToDIP(rect.bottom);
+		return dipRect;
+	}
+	
+	// Opens the camera's image thumb onto the page.
+	// Saves the image view in imageViewThumb for the thumbnail view.
+	// This operation has to run on the UI thread.
+	public void addImageThumb(final Context context, final String filePath, final Rect clientRect) {
+	    runOnUiThread(new Runnable() {
+	    	public void run() {
+	    		// Our dimensions are from the webView, so they're in pixels.
+	    		// Convert to DIPs so the layout can show it correctly.
+	    		Rect dipRect = convertClientPixelsToDIPs(clientRect);
+	    		// Get the bitmap from the file and set it to the thumb view.
+	    		imageViewThumb = new ImageView(context); 
+	    		Bitmap bmp = BitmapFactory.decodeFile(filePath);
+	    		// Scale image to thumb view.
+	    		imageViewThumb.setImageBitmap(Bitmap.createScaledBitmap(bmp, dipRect.width(), dipRect.height(), false));
+	    		
+				RelativeLayout layoutMain = (RelativeLayout) findViewById(R.id.main_layout);
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dipRect.width(), dipRect.height());
+				params.leftMargin = dipRect.left;
+				params.topMargin = dipRect.top;
+				
+				layoutMain.addView(imageViewThumb, params);
+	    	}
+	    });
+	}
+	
+	// Removes the imageView thumb from the activity and deletes from the resources.
+	// This operation has to run on the UI thread.
+	public void removeImageThumb(final Context context) {
+	    runOnUiThread(new Runnable() {
+	        public void run() {
+	        	ViewGroup vg = (ViewGroup)(imageViewThumb.getParent());
+	        	vg.removeView(imageViewThumb);
+	        	imageViewThumb = null;
+	        }
+	    });
+	}
+	
 	// callJS calls javascript functions from the webView.
 	// This function is required because the function has to be
 	//  called inside the UI thread.
 	// context needs to be set to the calling activity (this in the activity).
 	// jsFuncName is the name of the javascript function to call.
 	// argList is a comma-delimited argument list to send to the js function.
+	//  strings in argList need to be wrapped in single quotes.
 	//  If there are no arguments, set argList to "".
 	public void callJS(final Context context, final String jsFuncName, final String argList) {
 		runOnUiThread(new Runnable() {
 	        public void run() {
+	    		Log.d(TAG, "callJS: " + jsFuncName+"("+argList+")");
 	        	((MainActivity)context).mWebView.loadUrl("javascript:"+jsFuncName+"("+argList+")");
 	        }
 		});
@@ -154,14 +248,20 @@ public class MainActivity extends Activity {
 	}
 	
 	// This function needs to be called by the mCamera.takePicture callback
-	//  when completed.
+	//  when completed. It will call the javascript callback function for
+	//  takePicture.
 	public void takePictureCompleted(String filePath) {
 		if (takePictureCallback != "")
-			// Javascript callback.
-			callJS(this, takePictureCallback, filePath);
+			// Javascript callback. Since filePath is a string, surround
+			//  it in single quotes.
+			callJS(this, takePictureCallback, "'"+filePath+"'");
 	}
 	
+	// Closes the preview and the camera.
 	public void closeCamera() {
+		// Remove the preview view from the activity.
+		// This will remove it from view, and delete the resource.
+		removeCameraView(this);
 		// Close camera and release it so other apps can use it.
 		// (Releasing it also allows this app to use the camera again)
 		mCamera.stopPreview();
